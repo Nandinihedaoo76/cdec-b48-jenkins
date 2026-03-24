@@ -20,5 +20,18 @@ pipeline {
                sh 'terraform apply --auto-approve'
             }
         }
+
+        stage ('approval'){
+            steps{
+                input ' wait or approval'
+            }
+        }
+
+        stage ('destroy'){
+            steps{
+                sh'''cd terraform
+                    terraform destroy --auto-approve'''
+            }
+        }
     }
 }
